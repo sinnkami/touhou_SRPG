@@ -16,7 +16,6 @@ gulp.task('scripts', function(){
   }))
   .pipe(named())
   .pipe(gulp_webpack({
-    devtool: args.sourcemaps ? 'inline-source-map' : false,
     module: {
       loaders: [
         {

@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "gulp --watch",
-    "build:express": "gulp --watch --compression --sourcemaps --vendor='express'",
-    "build:electron": "gulp --watch --compression --sourcemaps --vendor='electron'"
+    "build:express": "gulp --watch --compression=true --sourcemaps=true --vendor='express'",
+    "build:electron": "gulp --watch --compression=true --sourcemaps=true --vendor='electron'"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -33,7 +33,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sequence": "^0.4.6",
-    "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "gulp-webpack": "^1.5.0",

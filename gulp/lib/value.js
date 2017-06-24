@@ -14,9 +14,6 @@ const args = require('yargs')
     default: 'express',
     describe: 'どの形式で出力するか',
     choices: ['express', 'electron']
-  })
-  .option('sourcemaps', {
-    describe: 'ソースマップを作るかどうか'
 }).argv;
 
 const value = {
