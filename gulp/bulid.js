@@ -13,7 +13,7 @@ gulp.task('build', (callback) => {
         'express'
       ],
       'server',
-      'watch',
+      'watch:express',
       callback
     )
   }

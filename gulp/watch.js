@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const args = require('./lib/value');
 
-gulp.task('watch', (callback) => {
+gulp.task('watch:express', (callback) => {
   if (!args.watch) { return callback(); }
 
   gulp.watch(`${args.src}/bin/www`, ['bin', 'server']);
