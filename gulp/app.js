@@ -1,8 +1,9 @@
 const gulp = require('gulp');
-const value = require('./lib/value');
-const args = require('yargs').argv;
+const rename = require("gulp-rename");
+const args = require('./lib/value');
 
-gulp.task('app', function () {
-  return gulp.src(`${value.src}/app.js`)
-  .pipe(gulp.dest(`${value.dest}`))
+gulp.task('express', function () {
+  return gulp.src(`${args.src}/${args.vendor}.js`)
+  .pipe(rename("./app.js"))
+  .pipe(gulp.dest(`${args.dest}/`))
 })

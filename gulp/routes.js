@@ -1,8 +1,8 @@
 const gulp = require('gulp');
-const value = require('./lib/value');
-const args = require('yargs').argv;
+const args = require('./lib/value');
+
 
 gulp.task('routes', function () {
-  return gulp.src(`${value.src}/routes/**/*.js`)
-  .pipe(gulp.dest(`${value.dest}/routes`))
+  return gulp.src(`${args.src}/routes/**/*.js`)
+  .pipe(gulp.dest(`${args.dest}/routes`))
 })

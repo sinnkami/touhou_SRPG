@@ -1,16 +1,16 @@
 const gulp = require('gulp');
 const uglify = require('gulp-uglify');
-const value = require('./lib/value');
+const args = require('./lib/value');
 const webpack = require('webpack');
 const gulpif = require('gulp-if');
 const gulp_webpack = require('gulp-webpack');
 const gutil = require('gulp-util');
 const named = require('vinyl-named');
-const args = require('yargs').argv;
+
 const plumber = require('gulp-plumber');
 
 gulp.task('scripts', function(){
-  return gulp.src(`${value.src}/public/js/**/*.js`)
+  return gulp.src(`${args.src}/public/js/**/*.js`)
   .pipe(plumber({
     errorHandler () {}
   }))
@@ -40,5 +40,5 @@ gulp.task('scripts', function(){
     gutil.log(gutil.colors.red('[Error]'), err.toString());
     this.emit('end');
   })))
-  .pipe(gulp.dest(`${value.dest}/public/js/`));
+  .pipe(gulp.dest(`${args.dest}/public/js/`));
 });
