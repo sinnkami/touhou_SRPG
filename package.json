@@ -1,11 +1,15 @@
 {
   "name": "touhou-srpg",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
+  "author": "sinnkami",
+  "main": "app.js",
   "scripts": {
     "start": "gulp --watch",
-    "build:express": "gulp --watch --compression=true --sourcemaps=true --vendor='express'",
-    "build:electron": "gulp --watch --compression=true --sourcemaps=true --vendor='electron'"
+    "dev:express": "gulp --watch --vendor='express'",
+    "dev:electron": "gulp --watch --vendor='electron'",
+    "build:express": "gulp --watch --compression=true --vendor='express'",
+    "build:electron": "gulp pack --compression=true --vendor='electron'"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -22,6 +26,7 @@
     "babel-loader": "^7.0.0",
     "browserify": "^14.4.0",
     "del": "^3.0.0",
+    "electron-packager": "^8.7.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^3.4.2",
