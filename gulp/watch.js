@@ -13,3 +13,14 @@ gulp.task('watch:express', (callback) => {
   gulp.watch(`${args.src}/views/**/*.jade`, ['views', 'server'])
   gulp.watch(`${args.src}/${args.vendor}.js`, [`${args.vendor}`, 'server'])
 })
+
+gulp.task('watch:electron', (callback) => {
+  if (!args.watch) { return callback(); }
+
+  gulp.watch(`${args.src}/public/js/**/*.js`, ['scripts'])
+  gulp.watch(`${args.src}/public/scss/**/*.scss`, ['style:sass'])
+  gulp.watch(`${args.src}/public/css/**/*.css`, ['style:css'])
+  gulp.watch(`${args.src}/public/images/**/*.`, ['images'])
+  gulp.watch(`${args.src}/views/**/*.jade`, ['views'])
+  gulp.watch(`${args.src}/${args.vendor}.js`, [`${args.vendor}`])
+})

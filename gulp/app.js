@@ -7,3 +7,9 @@ gulp.task('express', function () {
   .pipe(rename("./app.js"))
   .pipe(gulp.dest(`${args.dest}/`))
 })
+
+gulp.task('electron', function () {
+  return gulp.src(`${args.src}/${args.vendor}.js`)
+  .pipe(rename("./app.js"))
+  .pipe(gulp.dest(`${args.dest}/`))
+})

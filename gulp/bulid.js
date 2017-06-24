@@ -16,5 +16,15 @@ gulp.task('build', (callback) => {
       'watch:express',
       callback
     )
+  }else if (args.vendor === "electron") {
+    return gulp_sequence(
+      'reset',[
+        'public',
+        'views',
+        'electron'
+      ],
+      'watch:electron',
+      callback
+    )
   }
 });

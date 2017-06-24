@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "gulp --watch",
-    "build": "gulp --watch --compression --sourcemaps"
+    "build:express": "gulp --watch --compression --sourcemaps --vendor='express'",
+    "build:electron": "gulp --watch --compression --sourcemaps --vendor='electron'"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
