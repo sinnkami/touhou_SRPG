@@ -1,7 +1,7 @@
 const gulp = require('gulp');
-const value = require('./lib/value');
+const args = require('./lib/value');
 
 gulp.task('views', function () {
-  return gulp.src(`${value.src}/views/**/*.jade`)
-  .pipe(gulp.dest(`${value.dest}/views`))
+  return gulp.src(`${args.src}/views/**/*.jade`)
+  .pipe(gulp.dest(`${args.dest}/views`))
 })

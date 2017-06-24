@@ -1,7 +1,7 @@
 const gulp = require('gulp');
-const value = require('./lib/value');
+const args = require('./lib/value');
 
 gulp.task('bin', () => {
-  return gulp.src(`${value.src}/bin/www`)
-    .pipe(gulp.dest(`${value.dest}/bin/`))
+  return gulp.src(`${args.src}/bin/www`)
+    .pipe(gulp.dest(`${args.dest}/bin/`))
 })
