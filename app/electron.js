@@ -20,7 +20,6 @@ class App {
         height: 630,
         center: true,
         resizable: false,
-        show: false,
         fullscreen: false,
         useContentSize: true
       });
@@ -32,9 +31,12 @@ class App {
 
       this.mainWindow.loadURL(`file://${__dirname}/views/index.html`);
     });
+
   }
 
   openDevTools() {
     this.mainWindow.webContents.openDevTools()
   }
 }
+
+new App();
