@@ -5,6 +5,8 @@ const webpack = require('webpack');
 const gulpif = require('gulp-if');
 const gulp_webpack = require('gulp-webpack');
 const gutil = require('gulp-util');
+const babel = require('gulp-babel');
+const rename = require('gulp-rename');
 const named = require('vinyl-named');
 
 const plumber = require('gulp-plumber');
@@ -14,8 +16,9 @@ gulp.task('scripts', function(){
   .pipe(plumber({
     errorHandler () {}
   }))
-  .pipe(named())
-  .pipe(gulp_webpack({
+  .pipe(gulpif(args.vendor === "express", named()))
+  .pipe(gulpif(args.vendor === "express", gulp_webpack({
+    target: "node",
     module: {
       loaders: [
         {
@@ -34,10 +37,16 @@ gulp.task('scripts', function(){
       cached: false,
       children: false
     }))
-  }))
+  })))
+  .pipe(gulpif(args.vendor === "electron", babel({
+    presets: ['es2015']
+  })))
   .pipe(gulpif(args.compression, uglify().on('error', function(err) {
     gutil.log(gutil.colors.red('[Error]'), err.toString());
     this.emit('end');
   })))
+  .pipe(rename(function(path){
+    path.dirname = ".";
+  }))
   .pipe(gulp.dest(`${args.dest}/public/js/`));
 });
