@@ -1,4 +1,6 @@
 # class Game_**
+  - Game_Base
+    全てのGameクラスのスーパークラス
   - Game_Character   
     ゲーム内で登場する全てのキャラクターのスーパークラス
 

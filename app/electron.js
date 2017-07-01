@@ -21,7 +21,8 @@ class App {
         center: true,
         resizable: false,
         fullscreen: false,
-        useContentSize: true
+        useContentSize: true,
+        'node-integration': false
       });
 
       this.mainWindow.on('closed', ()=> {
