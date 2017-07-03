@@ -16,8 +16,8 @@ class App {
 
     this.app.on('ready', ()=> {
       this.mainWindow = new BrowserWindow({
-        width: 800,
-        height: 630,
+        width: 600,
+        height: 480,
         center: true,
         resizable: false,
         fullscreen: false,
