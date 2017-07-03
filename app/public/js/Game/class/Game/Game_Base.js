@@ -1,7 +1,8 @@
 class Game_Base {
   constructor(class_data) {
-    for (let data in class_data) {
-      console.log(data);
-    }
+    class_data.forEach((value, num) => {
+      let name = value.constructor.name.split("_");
+      this[`${name[1]}`] = value;
+    })
   }
 }
