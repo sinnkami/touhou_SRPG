@@ -17,8 +17,8 @@ const args = require('yargs')
 }).argv;
 
 const value = {
-  dest: `./dist/${args.vendor}`,
-  src: "./app",
+  dest: `dist/${args.vendor}`,
+  src: "app",
   watch: args.watch,
   vendor: args.vendor,
   sourcemaps: args.sourcemaps,
