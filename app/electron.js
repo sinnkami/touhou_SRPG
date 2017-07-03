@@ -30,7 +30,7 @@ class App {
         this.app.quit();
       });
 
-      this.mainWindow.loadURL(`file://${__dirname}/views/index.html`);
+      this.mainWindow.loadURL(`file://${__dirname}/index.html`);
     });
 
   }

@@ -10,5 +10,6 @@ gulp.task('views', function () {
   .pipe(gulpif(args.vendor === "electron", jade({
     pretty: !args.compression
   })))
-  .pipe(gulp.dest(`${args.dest}/views`))
+  .pipe(gulpif(args.vendor === "express", gulp.dest(`${args.dest}/views`)))
+  .pipe(gulpif(args.vendor === "electron", gulp.dest(`${args.dest}/`))))
 })
