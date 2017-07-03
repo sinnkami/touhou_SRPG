@@ -1,26 +1,27 @@
 const gulp = require('gulp');
+const watch = require('gulp-watch');
 const args = require('./lib/value');
 
 gulp.task('watch:express', (callback) => {
   if (!args.watch) { return callback(); }
 
-  gulp.watch(`${args.src}/bin/www`, ['bin', 'server']);
-  gulp.watch(`${args.src}/public/js/**/*.js`, ['scripts'])
-  gulp.watch(`${args.src}/public/scss/**/*.scss`, ['style:sass'])
-  gulp.watch(`${args.src}/public/css/**/*.css`, ['style:css'])
-  gulp.watch(`${args.src}/public/images/**/*.`, ['images'])
-  gulp.watch(`${args.src}/routes/**/*.js`, ['routes', 'server'])
-  gulp.watch(`${args.src}/views/${args.vendor}/**/*.jade`, ['views', 'server'])
-  gulp.watch(`${args.src}/${args.vendor}.js`, [`${args.vendor}`, 'server'])
+  watch(`${args.src}/bin/www`, () => { return gulp.start(['bin', 'server']); });
+  watch(`${args.src}/public/js/**/*.js`, () => { return gulp.start(['scripts']); });
+  watch(`${args.src}/public/scss/**/*.scss`, () => { return gulp.start(['style:sass']); });
+  watch(`${args.src}/public/css/**/*.css`, () => { return gulp.start(['style:css']); });
+  watch(`${args.src}/public/images/**/*.`, () => { return gulp.start(['images']); });
+  watch(`${args.src}/routes/**/*.js`, () => { return gulp.start(['routes', 'server']); });
+  watch(`${args.src}/views/${args.vendor}/**/*.jade`, () => { return gulp.start(['views', 'server']); });
+  watch(`${args.src}/${args.vendor}.js`, () => { return gulp.start([`${args.vendor}`, 'server']); });
 })
 
 gulp.task('watch:electron', (callback) => {
   if (!args.watch) { return callback(); }
 
-  gulp.watch(`${args.src}/public/js/**/*.js`, ['scripts'])
-  gulp.watch(`${args.src}/public/scss/**/*.scss`, ['style:sass'])
-  gulp.watch(`${args.src}/public/css/**/*.css`, ['style:css'])
-  gulp.watch(`${args.src}/public/images/**/*.`, ['images'])
-  gulp.watch(`${args.src}/views/${args.vendor}/**/*.jade`, ['views'])
-  gulp.watch(`${args.src}/${args.vendor}.js`, [`${args.vendor}`])
+  watch(`${args.src}/public/js/**/*.js`, () => { return gulp.start(['scripts']); });
+  watch(`${args.src}/public/scss/**/*.scss`, () => { return gulp.start(['style:sass']); });
+  watch(`${args.src}/public/css/**/*.css`, () => { return gulp.start(['style:css']); });
+  watch(`${args.src}/public/images/**/*.`, () => { return gulp.start(['images']); });
+  watch(`${args.src}/views/${args.vendor}/**/*.jade`, () => { return gulp.start(['views']); });
+  watch(`${args.src}/${args.vendor}.js`, () => { return gulp.start([`${args.vendor}`]); });
 })
