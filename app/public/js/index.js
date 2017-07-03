@@ -8,7 +8,7 @@ $(function () {
 
   game.forEach(function (value, num) {
     if (value === "index.js") { return; }
-    $body.append(`<script src="../public/js/${value}" type="text/javascript">`)
+    $body.append(`<script src="./public/js/${value}" type="text/javascript">`)
   })
   $body.append("<p>test</p>");
 })
