@@ -11,5 +11,5 @@ gulp.task('views', function () {
     pretty: !args.compression
   })))
   .pipe(gulpif(args.vendor === "express", gulp.dest(`${args.dest}/views`)))
-  .pipe(gulpif(args.vendor === "electron", gulp.dest(`${args.dest}/`))))
+  .pipe(gulpif(args.vendor === "electron", gulp.dest(`${args.dest}/`)))
 })
