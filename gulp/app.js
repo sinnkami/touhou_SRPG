@@ -10,6 +10,6 @@ gulp.task('express', function () {
 
 gulp.task('electron', function () {
   return gulp.src(`${args.src}/${args.vendor}.js`)
-  .pipe(rename("./app.js"))
+  .pipe(rename("app.js"))
   .pipe(gulp.dest(`${args.dest}/`))
 })
