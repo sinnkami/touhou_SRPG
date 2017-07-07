@@ -1,9 +1,9 @@
 class Game_Character {
   display() {
-    
+
   }
 
-  toDirection() {
+  isDirection() {
     return this.direction;
   }
 
@@ -12,7 +12,7 @@ class Game_Character {
   }
 
   canMove(x, y) {
-
+    
   }
 
   isDead() {
