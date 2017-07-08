@@ -7,6 +7,7 @@ const gulp_webpack = require('gulp-webpack');
 const gutil = require('gulp-util');
 const babel = require('gulp-babel');
 const rename = require('gulp-rename');
+const notify = require("gulp-notify");
 const named = require('vinyl-named');
 
 const plumber = require('gulp-plumber');
@@ -39,11 +40,21 @@ gulp.task('scripts', function(){
     }))
   })))
   .pipe(gulpif(args.vendor === "electron", babel({
-    presets: ['es2015']
-  })))
-  .pipe(gulpif(args.compression, uglify().on('error', function(err) {
-    gutil.log(gutil.colors.red('[Error]'), err.toString());
-    this.emit('end');
+    presets: ['env']
+  }).on('error', notify.onError(function (err) {
+    gutil.log(`${gutil.colors.red(err.name)}`);
+    console.log(err.message);
+    console.log(err.codeFrame);
+    let message = err.message.split(":")[1];
+    let file_name = err.fileName.split("/").pop();
+    return {
+      message: `${message}`,
+      title: `${err.name}: ${file_name}`
+    };
+  }))))
+  .pipe(gulpif(args.compression, uglify().on('error', function (err) {
+    gutil.log(err.toString());
+    this.emit("end");
   })))
   .pipe(rename(function(path){
     path.dirname = ".";
