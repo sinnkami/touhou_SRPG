@@ -9,6 +9,7 @@ const babel = require('gulp-babel');
 const rename = require('gulp-rename');
 const notify = require("gulp-notify");
 const named = require('vinyl-named');
+const stripDebug = require('gulp-strip-debug');
 
 const plumber = require('gulp-plumber');
 
@@ -52,6 +53,7 @@ gulp.task('scripts', function(){
       title: `${err.name}: ${file_name}`
     };
   }))))
+  .pipe(gulpif(args.compression, stripDebug()))
   .pipe(gulpif(args.compression, uglify({
     mangle: true,
     compress: true
