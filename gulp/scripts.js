@@ -52,7 +52,10 @@ gulp.task('scripts', function(){
       title: `${err.name}: ${file_name}`
     };
   }))))
-  .pipe(gulpif(args.compression, uglify().on('error', function (err) {
+  .pipe(gulpif(args.compression, uglify({
+    mangle: true,
+    compress: true
+  }).on('error', function (err) {
     gutil.log(err.toString());
     this.emit("end");
   })))
