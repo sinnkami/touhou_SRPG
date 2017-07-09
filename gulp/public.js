@@ -4,4 +4,5 @@ gulp.task('public', [
   'scripts',
   'images',
   'style',
+  'json',
 ])
