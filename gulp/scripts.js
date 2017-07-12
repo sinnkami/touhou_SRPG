@@ -55,7 +55,7 @@ gulp.task('scripts', function(){
   }))))
   .pipe(gulpif(args.compression, stripDebug()))
   .pipe(gulpif(args.compression, uglify({
-    mangle: true,
+    mangle: false, // true にすると変数名も変換されていろいろな場所がバグる
     compress: true
   }).on('error', function (err) {
     gutil.log(err.toString());
