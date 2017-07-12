@@ -1,19 +1,25 @@
 class Sprite_Map extends Canvas{
   init() {
     super.init();
-    this.maxX = this.width / 32;
-    this.maxY = this.height / 32;
-    this.data = null;
-    this.chip = { width: 32, height: 32 , image: null };
   }
 
-  draw(data_name) {
-    if (!this.canvas) { this.init(); }
-    if (!this.chip.image) {
-      let data = this.create(data_name);
-      this.data = data[0];
-      this.chip.image = data[1]; 
-    }
-    console.log(this);
+  // x, y, チップ番号, データの名前(なくても良い)
+  draw(x, y, num) {
+    if (!Manager.main) { this.init(); }
+
+    let game_map = Manager.Game.Map;
+    let maxX = game_map.maxX;
+    let maxY = game_map.maxY;
+    let chip = game_map.chip;
+
+    let position = this.chipPosition(num);
+    Manager.main_context.drawImage(chip.image, position.x*32, position.y*32, chip.width, chip.height, x*32, y*32, chip.width, chip.height);
+    return true;
+  }
+
+  chipPosition(num) {
+    let y = num / 10;
+    let x = num % 10;
+    return { x: x, y: y };
   }
 }
