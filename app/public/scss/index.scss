@@ -3,8 +3,21 @@ canvas {
   position: absolute;
 }
 
-#main {
+#map {
   background-color: black;
+  z-index: 1;
+}
+
+#player {
+  z-index: 2;
+}
+
+#window {
+  z-index: 4;
+}
+
+#anime {
+  z-index: 3;
 }
 
 body {

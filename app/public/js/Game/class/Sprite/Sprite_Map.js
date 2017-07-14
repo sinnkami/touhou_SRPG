@@ -13,7 +13,23 @@ class Sprite_Map extends Canvas{
     let chip = game_map.chip;
 
     let position = this.chipPosition(num);
-    Manager.main_context.drawImage(chip.image, position.x*32, position.y*32, chip.width, chip.height, x*32, y*32, chip.width, chip.height);
+    this.ctxMap.drawImage(chip.image, position.x*32, position.y*32, chip.width, chip.height, x*32, y*32, chip.width, chip.height);
+    return true;
+  }
+
+  allDraw(data_name) {
+    Manager.initAll({
+      Sprite: ["Map"],
+      Game: ["Map"],
+    })
+    Manager.Game.Map.get(data_name);
+
+    let map = Manager.Game.Map.data;
+    for (let y = 0; y < map.length; y++){
+      for (let x = 0; x < map[y].length; x++){
+        this.draw(x, y, map[y][x]);
+      }
+    }
     return true;
   }
 

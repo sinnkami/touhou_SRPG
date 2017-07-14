@@ -1,8 +1,7 @@
 class Game_Map {
   init() {
-    let canvas = Manager.Sprite.Map.main;
-    this.maxX = canvas.width / 32;
-    this.maxY = canvas.height / 32;
+    this.maxX = Manager.GameWidth / 32;
+    this.maxY = Manager.GameHeight / 32;
     this.data = null;
     this.chip = { width: 32, height: 32 , image: null };
   }

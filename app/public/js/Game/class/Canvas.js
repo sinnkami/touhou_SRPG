@@ -1,15 +1,11 @@
 class Canvas {
   init() {
-    if (Manager.main) { this.main = Manager.main; }else { this.main = null; }
-    if (Manager.main_context) { this.main_context = Manager.main_context; }else { this.main_context = null; }
-
-    if (Manager.window) { this.window = Manager.window; }else { this.window = null; }
-    if (Manager.window_context) { this.window_context = Manager.window_context; }else { this.window_context = null; }
-
-    if (Manager.anime) { this.anime = Manager.anime; }else { this.anime = null; }
-    if (Manager.anime_context) { this.anime_context = Manager.anime_context; }else { this.anime_context = null; }
-
-    if (this.main) { this.width = this.main.width; this.height = this.main.height; }
+    if (Manager.ctxMap) { this.ctxMap = Manager.ctxMap; }else { this.ctxMap = null; }
+    if (Manager.ctxWindow) { this.ctxWindow = Manager.ctxWindow; }else { this.ctxWindow = null; }
+    if (Manager.ctxAnime) { this.ctxAnime = Manager.ctxAnime; }else { this.ctxAnime = null; }
+    if (Manager.ctxPlayer) { this.ctxPlayer = Manager.ctxPlayer; }else { this.ctxPlayer = null; }
+    if (Manager.GameWidth) { this.width = Manager.GameWidth; }else { this.width = null; }
+    if (Manager.GameHeight) { this.height = Manager.GameHeight; }else { this.height = null; }
   }
 
   create(data_name) {

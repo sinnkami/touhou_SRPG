@@ -1,6 +1,6 @@
 class Game_Manager {
   constructor(class_data) {
-    class_data.forEach((value, num) => {
+    class_data.forEach((value) => {
       let name = value.constructor.name.split("_");
       this[name[0]] = value;
     })
@@ -11,6 +11,7 @@ class Game_Manager {
     this.FrameCount = 0;
 
     this.mainInterval = null;
+    this.players = [];
   }
 
   start() {
@@ -20,27 +21,10 @@ class Game_Manager {
   }
 
   main_loop() {
-    const Stats = require('stats.js');
-    var stats = new Stats();
-    stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.body.appendChild( stats.dom );
-
     return setInterval(() => {
       this.FrameCount++;
       if (this.view) {
-        this.initAll({
-          Sprite: ["Map"],
-          Game: ["Map"],
-        })
-        Manager.Game.Map.get("test");
-        let map = Manager.Game.Map.data;
-        let sprite = Manager.Sprite.Map;
-        for (let y = 0; y < map.length; y++){
-          for (let x = 0; x < map[y].length; x++){
-            sprite.draw(x, y, map[y][x]);
-          }
-        }
-        this.view = false;
+        this.view = !Manager.Sprite.Map.allDraw("test");
       }
       stats.update();
     }, 1000/this.FPS);
