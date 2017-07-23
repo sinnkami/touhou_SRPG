@@ -12,7 +12,6 @@ class Data_Player {
   }
   ReimuHakurei() {
     let json = JSON.parse(this.fs.readFileSync("./public/json/GameData/Player/ReimuHakurei.json"));
-    console.log(json.data.image);
     let image = this.images[json.data.image.name];
     return [json.data, image];
   }

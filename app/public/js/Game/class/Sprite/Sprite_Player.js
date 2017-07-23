@@ -12,7 +12,19 @@ class Sprite_Player extends Canvas {
     let image = game_player.image;
 
     let position = this.playerPosition(game_player);
-    return this.drawCharacter(image.data, position.x*image.width, position.y*image.height, image.width, image.height, x*32, y*32, image.width, image.height);
+    return this.drawCharacter(image.data, position.x*image.width, position.y*image.height, image.width, image.height, x, y, image.width, image.height);
+  }
+
+  clear(num) {
+    if (!this.ctxPlayer) { this.init(); }
+
+    let game_player = Manager.Game.Menbers.get(num);
+    let x = game_player.x;
+    let y = game_player.y;
+    let width = game_player.image.width;
+    let height = game_player.image.height;
+
+    return this.clearCharacter(x, y, width, height);
   }
 
   playerPosition(player) {
@@ -21,16 +33,16 @@ class Sprite_Player extends Canvas {
 
     switch (direction) {
       case "up":
-        return { x: animation, y: 3 };
+        return { x: Math.floor(animation), y: 3 };
       break;
       case "down":
-        return { x: animation, y: 0 };
+        return { x: Math.floor(animation), y: 0 };
       break;
       case "right":
-        return { x: animation, y: 2 };
+        return { x: Math.floor(animation), y: 2 };
       break;
       case "left":
-        return { x: animation, y: 1 };
+        return { x: Math.floor(animation), y: 1 };
       break;
     }
   }

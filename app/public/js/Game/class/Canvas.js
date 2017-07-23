@@ -14,4 +14,8 @@ class Canvas {
   drawCharacter(image, sx, sy, sw, sh, dx, dy, dw, dh) {
     return this.ctxPlayer.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
+
+  clearCharacter(x, y, w, h) {
+    return this.ctxPlayer.clearRect(x, y, w, h);
+  }
 }

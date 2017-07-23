@@ -20,7 +20,7 @@ class Game_Character {
     }else {
       throw new Error("画像ファイルが存在しません");
     }
-    if (data.number) { this.number = data.number; }else { this.number = null; warn.push(`${this.name}の番号が指定されていません`); }
+    if (data.number) { this.number = data.number + 100; }else { this.number = null; warn.push(`${this.name}の番号が指定されていません`); }
 
     for (let i in warn){
       console.warn(i);
@@ -33,12 +33,21 @@ class Game_Character {
 
   move(x, y) {
     let map = Manager.Game.Map.data;
+    let position = this.isPosition();
     if (!this.canMove(x, y, map)) { return false; }
-    map[position.y][position.x] = this.under;
+    if (this.under) {
+      map[position.y][position.x] = this.under;
+    }
     this.mapX += x;
     this.mapY += y;
     this.under = map[this.mapY][this.mapX];
     map[this.mapY][this.mapX] = this.number;
+
+    if (x < 0) { this.direction = "left"; }
+    if (x > 0) { this.direction = "right"; }
+    if (y < 0) { this.direction = "up"; }
+    if (y > 0) { this.direction = "down"; }
+    return true;
   }
 
   canMove(x, y, map) {
@@ -47,6 +56,7 @@ class Game_Character {
     let position = this.isPosition();
     if (!map[position.y + y]) { return false; }
     if (!map[position.y + y][position.x + x]) { return false; }
+
 
     return true;
   }
