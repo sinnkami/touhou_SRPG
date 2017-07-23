@@ -1,6 +1,30 @@
 class Game_Character {
-  display() {
+  constructor(data, image) {
+    var warn = [];
 
+    this.x = 0;
+    this.y = 0;
+    this.mapX = 0;
+    this.mapY = 0;
+    this.under = null;
+    this.direction = "down";
+    this.animationNumber = 1;
+
+    if (data.name) { this.name = data.name; }else { throw new Error("名前が指定されていません"); }
+    if (data.hp) { this.hp = data.hp; }else { this.hp = Infinity; }
+    if (image) {
+      this.image = {};
+      this.image["data"] = image;
+      this.image["width"] = data.image.width;
+      this.image["height"] = data.image.height;
+    }else {
+      throw new Error("画像ファイルが存在しません");
+    }
+    if (data.number) { this.number = data.number; }else { this.number = null; warn.push(`${this.name}の番号が指定されていません`); }
+
+    for (let i in warn){
+      console.warn(i);
+    }
   }
 
   isDirection() {
@@ -8,11 +32,23 @@ class Game_Character {
   }
 
   move(x, y) {
-    if (this.canMove(x, y)) { return false; }
+    let map = Manager.Game.Map.data;
+    if (!this.canMove(x, y, map)) { return false; }
+    map[position.y][position.x] = this.under;
+    this.mapX += x;
+    this.mapY += y;
+    this.under = map[this.mapY][this.mapX];
+    map[this.mapY][this.mapX] = this.number;
   }
 
-  canMove(x, y) {
-    
+  canMove(x, y, map) {
+    if (!map) { throw new Error("マップデータが存在しません"); }
+
+    let position = this.isPosition();
+    if (!map[position.y + y]) { return false; }
+    if (!map[position.y + y][position.x + x]) { return false; }
+
+    return true;
   }
 
   isDead() {
@@ -20,6 +56,12 @@ class Game_Character {
       return false;
     }
     return true;
+  }
+  isPosition() {
+    return {
+      x: this.mapX,
+      y: this.mapY
+    };
   }
 
   movingAnime() {

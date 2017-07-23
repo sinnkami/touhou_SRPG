@@ -3,9 +3,9 @@ class Sprite_Map extends Canvas{
     super.init();
   }
 
-  // x, y, チップ番号, データの名前(なくても良い)
+  // x, y, チップ番号
   draw(x, y, num) {
-    if (!Manager.main) { this.init(); }
+    if (!this.ctxMap) { this.init(); }
 
     let game_map = Manager.Game.Map;
     let maxX = game_map.maxX;
@@ -13,8 +13,7 @@ class Sprite_Map extends Canvas{
     let chip = game_map.chip;
 
     let position = this.chipPosition(num);
-    this.ctxMap.drawImage(chip.image, position.x*32, position.y*32, chip.width, chip.height, x*32, y*32, chip.width, chip.height);
-    return true;
+    return this.drawMap(chip.image, position.x*32, position.y*32, chip.width, chip.height, x*32, y*32, chip.width, chip.height);
   }
 
   allDraw(data_name) {

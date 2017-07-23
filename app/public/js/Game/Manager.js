@@ -9,14 +9,15 @@ class Game_Manager {
     this.update = false;
     this.GameStart = false;
     this.FrameCount = 0;
+    this.menbersLength = 4;
 
     this.mainInterval = null;
-    this.players = [];
   }
 
   start() {
     this.update = true;
     this.GameStart = true;
+    this.Game.Menbers.set("ReimuHakurei");
     this.mainInterval = this.main_loop();
   }
 

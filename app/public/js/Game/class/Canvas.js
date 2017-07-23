@@ -8,9 +8,10 @@ class Canvas {
     if (Manager.GameHeight) { this.height = Manager.GameHeight; }else { this.height = null; }
   }
 
-  create(data_name) {
-    if (!data_name) { throw new Error("チップデータが選択されていません"); }
-    let data = Manager.Data.Map[`${data_name}`]();
-    return data;
+  drawMap(image, sx, sy, sw, sh, dx, dy, dw, dh) {
+    return this.ctxMap.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  }
+  drawCharacter(image, sx, sy, sw, sh, dx, dy, dw, dh) {
+    return this.ctxPlayer.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
 }

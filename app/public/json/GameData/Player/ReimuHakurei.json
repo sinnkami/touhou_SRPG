@@ -1,5 +1,12 @@
 {
   "data": {
-    "hp": 100
+    "name": "博麗 霊夢",
+    "hp": 100,
+    "number": 1,
+    "image": {
+      "name": "ReimuHakurei",
+      "width": 32,
+      "height": 32
+    }
   }
 }
