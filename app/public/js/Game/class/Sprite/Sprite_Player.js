@@ -7,7 +7,6 @@ class Sprite_Player extends Canvas {
     if (!this.ctxPlayer) { this.init(); }
 
     let game_player = Manager.Game.Menbers.get(num);
-    console.log(game_player);
     let maxX = game_player.maxX;
     let maxY = game_player.maxY;
     let image = game_player.image;
