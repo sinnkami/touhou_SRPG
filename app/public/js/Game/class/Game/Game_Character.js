@@ -6,6 +6,7 @@ class Game_Character {
     this.y = 0;
     this.mapX = 0;
     this.mapY = 0;
+    this.under = null;
     this.direction = "down";
     this.animationNumber = 1;
 
