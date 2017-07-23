@@ -24,9 +24,11 @@ class Game_Manager {
   main_loop() {
     return setInterval(() => {
       this.FrameCount++;
+      this.Game.Key.keydown();
       if (this.view) {
         this.view = !Manager.Sprite.Map.allDraw("test");
       }
+      this.Game.Key.keyup();
       stats.update();
     }, 1000/this.FPS);
   }
