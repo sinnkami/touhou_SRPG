@@ -33,7 +33,7 @@ class Sprite_Map extends Canvas{
   }
 
   chipPosition(num) {
-    let y = num / 10;
+    let y = Math.floor(num / 10);
     let x = num % 10;
     return { x: x, y: y };
   }

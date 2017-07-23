@@ -28,7 +28,7 @@ class Sprite_Player extends Canvas {
   }
 
   playerPosition(player) {
-    let direction = player.direction;
+    let direction = player.isDirection();
     let animation = player.animationNumber;
 
     switch (direction) {

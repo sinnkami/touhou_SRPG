@@ -31,9 +31,37 @@ class Game_Character {
     return this.direction;
   }
 
-  move(x, y) {
+  move(x, y, num) {
+    var set;
+    if (x) { set = "x"; }
+    if (y) { set = "y"; }
+    if (this.mapMove(x, y)) {
+      Manager.animation = true;
+      var count = 0;
+      var move = setInterval(() => {
+        count++;
+        Manager.Sprite.Player.clear(num);
+        if (this.animationNumber > 2.9) {
+          this.animationNumber = 0;
+        }else {
+          this.animationNumber += 0.05;
+        }
+        this[set] += set === "x" ? x : y;
+        Manager.Sprite.Player.draw(this.x, this.y, num);
+        if (count === 32) { clearInterval(move); Manager.animation = false; }
+      }, 2);
+    }else {
+      Manager.Sprite.Player.clear(num);
+      Manager.Sprite.Player.draw(this.x, this.y, num);
+    }
+  }
+
+  mapMove(x, y) {
     let map = Manager.Game.Map.data;
     let position = this.isPosition();
+
+    this.direction = this.changeDirection(x, y);
+
     if (!this.canMove(x, y, map)) { return false; }
     if (this.under) {
       map[position.y][position.x] = this.under;
@@ -42,11 +70,6 @@ class Game_Character {
     this.mapY += y;
     this.under = map[this.mapY][this.mapX];
     map[this.mapY][this.mapX] = this.number;
-
-    if (x < 0) { this.direction = "left"; }
-    if (x > 0) { this.direction = "right"; }
-    if (y < 0) { this.direction = "up"; }
-    if (y > 0) { this.direction = "down"; }
     return true;
   }
 
@@ -74,8 +97,11 @@ class Game_Character {
     };
   }
 
-  movingAnime() {
-
+  changeDirection(x, y) {
+    if (x < 0) { return "left"; }
+    if (x > 0) { return "right"; }
+    if (y < 0) { return "up"; }
+    if (y > 0) { return "down"; }
   }
 
   isWeapon() {

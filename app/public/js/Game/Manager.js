@@ -40,74 +40,19 @@ class Game_Manager {
     const num = 0; //キャラ番号
     var input = this.Game.Key.input;
     var player = this.Game.Menbers.get(num);
+
     if (input.up) {
-      if (player.move(0, -1)) {
-        this.animation = true;
-        var count = 0;
-        var move = setInterval(() => {
-          count++;
-          this.Sprite.Player.clear(num);
-          if (player.animationNumber > 2.9) {
-            player.animationNumber = 0;
-          }else {
-            player.animationNumber += 0.05;
-          }
-          player.y--;
-          this.Sprite.Player.draw(player.x, player.y, num);
-          if (count === 32) { clearInterval(move); this.animation = false; }
-        }, 2);
-      }
+      player.move(0, -1, num);
     }else if (input.down) {
-      if (player.move(0, 1)) {
-        this.animation = true;
-        var count = 0;
-        var move = setInterval(() => {
-          count++;
-          this.Sprite.Player.clear(num);
-          if (player.animationNumber > 2.9) {
-            player.animationNumber = 0;
-          }else {
-            player.animationNumber += 0.05;
-          }
-          player.y++;
-          this.Sprite.Player.draw(player.x, player.y, num);
-          if (count === 32) { clearInterval(move); this.animation = false; }
-        }, 2);
-      }
+      player.move(0, 1, num);
     }else if (input.right) {
-      if (player.move(1, 0)) {
-        this.animation = true;
-        var count = 0;
-        var move = setInterval(() => {
-          count++;
-          this.Sprite.Player.clear(num);
-          if (player.animationNumber > 2.9) {
-            player.animationNumber = 0;
-          }else {
-            player.animationNumber += 0.05;
-          }
-          player.x++;
-          this.Sprite.Player.draw(player.x, player.y, num);
-          if (count === 32) { clearInterval(move); this.animation = false; }
-        }, 2);
-      }
+      player.move(1, 0, num);
     }else if (input.left) {
-      if (player.move(-1, 0)) {
-        this.animation = true;
-        var count = 0;
-        var move = setInterval(() => {
-          count++;
-          this.Sprite.Player.clear(num);
-          if (player.animationNumber > 2.9) {
-            player.animationNumber = 0;
-          }else {
-            player.animationNumber += 0.05;
-          }
-          player.x--;
-          this.Sprite.Player.draw(player.x, player.y, num);
-          if (count === 32) { clearInterval(move); this.animation = false; }
-        }, 2);
-      }
+      player.move(-1, 0, num);
+    }else {
+      player.animationNumber = 1;
+      this.Sprite.Player.clear(num);
+      this.Sprite.Player.draw(player.x, player.y, num);
     }
   }
 
