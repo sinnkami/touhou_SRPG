@@ -13,46 +13,53 @@ class Game_Manager {
     this.menbersLength = 4;
 
     this.mainInterval = null;
+    this.battleInterval = null;
   }
 
   start() {
     this.update = true;
     this.GameStart = true;
     this.Game.Menbers.set("ReimuHakurei");
-    this.mainInterval = this.main_loop();
+    this.mainInterval = this.mainLoop();
   }
 
-  main_loop() {
+  mainLoop() {
+    console.log("mainLoop開始");
     return setInterval(() => {
       this.FrameCount++;
       this.Game.Key.keydown();
-      if (this.view) {
-        this.view = !Manager.Sprite.Map.allDraw("test");
+      if (!this.view) {
+        this.view = this.Sprite.Map.allDraw("test");
       }
+      this.test();
 
-      if (!this.animation){ this.event(); }
+      if (!this.animation){ this.Scene.Move.event(); }
       this.Game.Key.keyup();
+
+      if (this.battleInterval) { clearInterval(this.mainInterval); this.mainInterval = null; }
       stats.update();
     }, 1000/this.FPS);
   }
 
-  event() {
-    const num = 0; //キャラ番号
-    var input = this.Game.Key.input;
-    var player = this.Game.Menbers.get(num);
+  battleLoop() {
+    console.log("battleLoop開始");
+    return setInterval(() => {
+      this.FrameCount++;
+      this.Game.Key.keydown();
 
-    if (input.up) {
-      player.move(0, -1, num);
-    }else if (input.down) {
-      player.move(0, 1, num);
-    }else if (input.right) {
-      player.move(1, 0, num);
-    }else if (input.left) {
-      player.move(-1, 0, num);
-    }else {
-      player.animationNumber = 1;
-      this.Sprite.Player.clear(num);
-      this.Sprite.Player.draw(player.x, player.y, num);
+      this.test();
+
+      this.Game.Key.keyup();
+      if (this.mainInterval) { clearInterval(this.battleInterval); this.battleInterval = null; }
+    })
+  }
+
+  test() {
+    const input = this.Game.Key.input;
+    if (input.shift) {
+      input.shift = false;
+      if (this.mainInterval) { this.battleInterval = this.battleLoop(); }
+      else if (this.battleInterval) { this.mainInterval = this.mainLoop(); }
     }
   }
 
