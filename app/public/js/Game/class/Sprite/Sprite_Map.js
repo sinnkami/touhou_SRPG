@@ -26,7 +26,6 @@ class Sprite_Map extends Canvas{
   }
 
   allDraw(data_name) {
-    console.log("aaaa");
     if (this.dataName) {
       var name = this.dataName;
     }else {
