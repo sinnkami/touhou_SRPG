@@ -18,4 +18,14 @@ class Canvas {
   clearCharacter(x, y, w, h) {
     return this.ctxPlayer.clearRect(x, y, w, h);
   }
+
+  clearMap(x, y, w, h) {
+    return this.ctxMap.clearRect(x, y, w, h);
+  }
+
+  translateCharcter(x, y) {
+    this.ctxPlayer.translate(-x, -y);
+    this.ctxMap.translate(-x, -y);
+    return true;
+  }
 }

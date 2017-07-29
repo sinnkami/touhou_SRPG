@@ -1,6 +1,7 @@
 class Sprite_Map extends Canvas{
   init() {
     super.init();
+    this.dataName = this.dataName ? this.dataName : null;
   }
 
   // x, y, チップ番号
@@ -16,12 +17,29 @@ class Sprite_Map extends Canvas{
     return this.drawMap(chip.image, position.x*32, position.y*32, chip.width, chip.height, x*32, y*32, chip.width, chip.height);
   }
 
+  allClear() {
+    const x = -32;
+    const y = -32;
+    const w = this.GameWidth + 32;
+    const h = this.GameHeight + 32;
+    return this.clearMap(x, y, w, h);
+  }
+
   allDraw(data_name) {
+    console.log("aaaa");
+    if (this.dataName) {
+      var name = this.dataName;
+    }else {
+      this.dataName = data_name;
+      if (!this.dataName) { throw new Error("マップ名が指定されていません"); }
+      var name = this.dataName;
+    }
+
     Manager.initAll({
       Sprite: ["Map"],
       Game: ["Map"],
     })
-    Manager.Game.Map.get(data_name);
+    Manager.Game.Map.get(name);
 
     let map = Manager.Game.Map.data;
     for (let y = 0; y < map.length; y++){

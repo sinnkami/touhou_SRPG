@@ -40,6 +40,7 @@ class Game_Character {
       var count = 0;
       var move = setInterval(() => {
         count++;
+        let res = Manager.Sprite.Player.translate(x, y, num);
         Manager.Sprite.Player.clear(num);
         if (this.animationNumber > 2.9) {
           this.animationNumber = 0;
@@ -48,7 +49,17 @@ class Game_Character {
         }
         this[set] += set === "x" ? x : y;
         Manager.Sprite.Player.draw(this.x, this.y, num);
-        if (count === 32) { clearInterval(move); Manager.animation = false; }
+        if (res) {
+          Manager.Sprite.Map.allClear();
+          Manager.Sprite.Map.allDraw();
+        }
+        if (count === 32) {
+          clearInterval(move);
+          Manager.animation = false;
+          Manager.Sprite.Player.translateSwich = false;
+          if (res === "x") { Manager.Sprite.Player.translateCount.x--; }
+          if (res === "y") { Manager.Sprite.Player.translateCount.y--; }
+        }
       }, 2);
     }else {
       Manager.Sprite.Player.clear(num);

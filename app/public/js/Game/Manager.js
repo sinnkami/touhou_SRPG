@@ -20,6 +20,14 @@ class Game_Manager {
     this.update = true;
     this.GameStart = true;
     this.Game.Menbers.set("ReimuHakurei");
+
+    // テスト
+    let player = Manager.Game.Menbers.get(0);
+    player.x = 32;
+    player.y = 32;
+    player.mapX = 1;
+    player.mapY = 1;
+    // テスト終了
     this.mainInterval = this.mainLoop();
   }
 

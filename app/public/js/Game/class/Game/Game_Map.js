@@ -4,6 +4,8 @@ class Game_Map {
     this.maxY = Manager.GameHeight / 32;
     this.data = null;
     this.chip = { width: 32, height: 32 , image: null };
+    //最小 x:23 y:19
+    this.center = { x: {start: 11, len: 12}, y: {start: 10, len: 11} };
   }
 
   get(data_name) {

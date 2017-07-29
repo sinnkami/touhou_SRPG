@@ -1,18 +1,52 @@
 class Sprite_Player extends Canvas {
-  init() {
-    super.init();
+  constructor() {
+    super();
+    this.translateCount = { x: 0, y: 0 };
+    this.translateSwich = false;
   }
 
   draw(x, y, num) {
     if (!this.ctxPlayer) { this.init(); }
 
     let game_player = Manager.Game.Menbers.get(num);
-    let maxX = game_player.maxX;
-    let maxY = game_player.maxY;
     let image = game_player.image;
 
-    let position = this.playerPosition(game_player);
+    let position = this.playerDirection(game_player);
     return this.drawCharacter(image.data, position.x*image.width, position.y*image.height, image.width, image.height, x, y, image.width, image.height);
+  }
+
+  translate(x, y, num) {
+    if (!this.ctxPlayer) { this.init(); }
+    this.canTranslate(x, y, num);
+    if (x && this.translateCount.x > 0) {
+      this.translateCharcter(x, y);
+      return "x";
+    }else if (y && this.translateCount.y > 0) {
+      this.translateCharcter(x, y);
+      return "y";
+    }else {
+      return false;
+    }
+  }
+
+  canTranslate(x, y, num) {
+    if (this.translateSwich) { return false; }
+    this.translateSwich = true;
+
+    var puls = {x: this.translateCount.x + Math.abs(x), y: this.translateCount.y + Math.abs(y)};
+
+    let game_player = Manager.Game.Menbers.get(num);
+    let mapX = game_player.mapX;
+    let mapY = game_player.mapY;
+    let center = Manager.Game.Map.center;
+    let map = Manager.Game.Map.data;
+
+    if (x && (mapX - center.x.start === 0 || mapX + center.x.len === map[0].length)) { puls.x = 2; }
+    else if (x && (mapX - center.x.start < 0 || mapX + center.x.len > map[0].length)) { return false; }
+    if (y && (mapY - center.y.start === 0 || mapY + center.y.len === map.length)) { puls.y = 2; }
+    else if (y && (mapY - center.y.start < 0 || mapY + center.y.len > map.length)) { return false; }
+
+    this.translateCount = puls;
   }
 
   clear(num) {
@@ -27,7 +61,7 @@ class Sprite_Player extends Canvas {
     return this.clearCharacter(x, y, width, height);
   }
 
-  playerPosition(player) {
+  playerDirection(player) {
     let direction = player.isDirection();
     let animation = player.animationNumber;
 
