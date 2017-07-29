@@ -26,6 +26,20 @@ class Sprite_Map extends Canvas{
   }
 
   allDraw(data_name) {
+    if (!this.dataName) { throw new Error("マップ名が指定されていません"); }
+
+    Manager.Game.Map.get(this.dataName);
+
+    let map = Manager.Game.Map.data;
+    for (let y = 0; y < map.length; y++){
+      for (let x = 0; x < map[y].length; x++){
+        this.draw(x, y, map[y][x]);
+      }
+    }
+    return true;
+  }
+
+  initAllDraw(data_name) {
     if (this.dataName) {
       var name = this.dataName;
     }else {
