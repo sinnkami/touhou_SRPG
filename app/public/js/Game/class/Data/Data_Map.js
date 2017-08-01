@@ -15,4 +15,9 @@ class Data_Map {
     let image = this.images[json.image];
     return [json.data, image];
   }
+  big() {
+    let json = JSON.parse(this.fs.readFileSync("./public/json/GameData/Map/big.json"));
+    let image = this.images[json.image];
+    return [json.data, image];
+  }
 }

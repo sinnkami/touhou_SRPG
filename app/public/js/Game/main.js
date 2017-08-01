@@ -1,8 +1,8 @@
 const Manager = new Game_Manager([
   new Data_Base([new Data_Player(), new Data_Map()]),
-  new Game_Base([new Game_Menbers(), new Game_Map(), new Game_Key()]),
-  new Scene_Base([new Scene_Move()]),
-  new Sprite_Base([new Sprite_Map(), new Sprite_Player()]),
+  new Game_Base([new Game_Menbers(), new Game_Map(), new Game_Key(), new Game_Battle()]),
+  new Scene_Base([new Scene_Move(), new Scene_Battle()]),
+  new Sprite_Base([new Sprite_Map(), new Sprite_Player(), new Sprite_Battle()]),
   new Window_Base([])
 ]);
 const $body = $("body");

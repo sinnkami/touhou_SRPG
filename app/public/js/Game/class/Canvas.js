@@ -15,6 +15,11 @@ class Canvas {
     return this.ctxPlayer.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
 
+  drawMoveRange(x, y, w, h) {
+    this.ctxMap.fillStyle = "red";
+    return this.ctxMap.fillRect(x, y, w, h);
+  }
+
   clearCharacter(x, y, w, h) {
     return this.ctxPlayer.clearRect(x, y, w, h);
   }

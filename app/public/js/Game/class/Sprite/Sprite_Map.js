@@ -9,8 +9,6 @@ class Sprite_Map extends Canvas{
     if (!this.ctxMap) { this.init(); }
 
     let game_map = Manager.Game.Map;
-    let maxX = game_map.maxX;
-    let maxY = game_map.maxY;
     let chip = game_map.chip;
 
     let position = this.chipPosition(num);
@@ -18,10 +16,11 @@ class Sprite_Map extends Canvas{
   }
 
   allClear() {
-    const x = -32;
-    const y = -32;
-    const w = this.GameWidth + 32;
-    const h = this.GameHeight + 32;
+    var x = 0;
+    var y = 0;
+    var w = Manager.Game.Map.maxX;
+    var h = Manager.Game.Map.maxY;
+    console.log(x, y, w, h);
     return this.clearMap(x, y, w, h);
   }
 
@@ -64,6 +63,8 @@ class Sprite_Map extends Canvas{
   }
 
   chipPosition(num) {
+    let number = Manager.Game.Map.number;
+    num = num - number;
     let y = Math.floor(num / 10);
     let x = num % 10;
     return { x: x, y: y };

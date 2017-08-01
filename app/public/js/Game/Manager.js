@@ -37,7 +37,7 @@ class Game_Manager {
       this.FrameCount++;
       this.Game.Key.keydown();
       if (!this.view) {
-        this.view = this.Sprite.Map.allDraw("test");
+        this.view = this.Sprite.Map.initAllDraw("big");
       }
       this.test();
 
@@ -55,6 +55,7 @@ class Game_Manager {
       this.FrameCount++;
       this.Game.Key.keydown();
 
+      this.Scene.Battle.move(0);
       this.test();
 
       this.Game.Key.keyup();
