@@ -33,13 +33,13 @@ class Sprite_Player extends Canvas {
     if (this.translateSwich) { return false; }
     this.translateSwich = true;
 
-    var puls = {x: this.translateCount.x + Math.abs(x), y: this.translateCount.y + Math.abs(y)};
+    const puls = {x: this.translateCount.x + Math.abs(x), y: this.translateCount.y + Math.abs(y)};
 
-    let game_player = Manager.Game.Menbers.get(num);
-    let mapX = game_player.mapX;
-    let mapY = game_player.mapY;
-    let center = Manager.Game.Map.center;
-    let map = Manager.Game.Map.data;
+    const game_player = Manager.Game.Menbers.get(num);
+    const mapX = game_player.mapX;
+    const mapY = game_player.mapY;
+    const center = Manager.Game.Map.center;
+    const map = Manager.Game.Map.data;
 
     if (x && (mapX - center.x.start === 0 || mapX + center.x.len === map[0].length)) { puls.x = 2; }
     else if (x && (mapX - center.x.start < 0 || mapX + center.x.len > map[0].length)) { return false; }

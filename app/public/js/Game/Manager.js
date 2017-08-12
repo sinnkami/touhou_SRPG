@@ -33,16 +33,19 @@ class Game_Manager {
 
   mainLoop() {
     console.log("mainLoop開始");
+    this.Game.Key.keydown();
+    this.Game.Key.keyup();
     return setInterval(() => {
+      let result = document.hasFocus();
+      if (!result) { return; }
+
       this.FrameCount++;
-      this.Game.Key.keydown();
       if (!this.view) {
         this.view = this.Sprite.Map.initAllDraw("big");
       }
       this.test();
 
       if (!this.animation){ this.Scene.Move.event(); }
-      this.Game.Key.keyup();
 
       if (this.battleInterval) { clearInterval(this.mainInterval); this.mainInterval = null; }
       stats.update();
@@ -52,6 +55,9 @@ class Game_Manager {
   battleLoop() {
     console.log("battleLoop開始");
     return setInterval(() => {
+      let result = document.hasFocus();
+      if (!result) { return; }
+
       this.FrameCount++;
       this.Game.Key.keydown();
 

@@ -2,7 +2,7 @@ class Game_Battle {
   init() {
 
     // 移動範囲を格納する変数作成
-    var map = Manager.Game.Map.data;
+    const map = Manager.Game.Map.data;
     this.movementRangeInit = [];
     for (let y = 0; y < map.length; y++) {
       this.movementRangeInit.push([]);

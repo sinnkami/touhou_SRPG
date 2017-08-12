@@ -1,6 +1,6 @@
 class Game_Character {
   constructor(data, image) {
-    var warn = [];
+    const warn = [];
 
     this.x = 0;
     this.y = 0;
@@ -32,13 +32,11 @@ class Game_Character {
   }
 
   move(x, y, num) {
-    var set;
-    if (x) { set = "x"; }
-    if (y) { set = "y"; }
     if (this.mapMove(x, y)) {
       Manager.animation = true;
       var count = 0;
-      var move = setInterval(() => {
+      var set = x ? "x" : "y";
+      const move = setInterval(() => {
         count++;
         let res = Manager.Sprite.Player.translate(x, y, num);
         Manager.Sprite.Player.clear(num);
@@ -54,6 +52,8 @@ class Game_Character {
           Manager.Sprite.Map.allDraw();
         }
         if (count === 32) {
+          count = null;
+          set = null;
           clearInterval(move);
           Manager.animation = false;
           Manager.Sprite.Player.translateSwich = false;
