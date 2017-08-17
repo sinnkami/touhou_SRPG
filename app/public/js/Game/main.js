@@ -28,6 +28,10 @@ $(function () {
   const anime_context = anime.getContext('2d');
   Manager.ctxAnime = anime_context;
 
+  const move = document.getElementById('move');
+  const move_content = move.getContext('2d');
+  Manager.ctxMove = move_content;
+
   Manager.GameWidth = map.width;
   Manager.GameHeight = map.height;
 })

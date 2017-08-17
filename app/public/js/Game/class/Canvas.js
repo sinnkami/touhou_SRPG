@@ -4,6 +4,7 @@ class Canvas {
     if (Manager.ctxWindow) { this.ctxWindow = Manager.ctxWindow; }else { this.ctxWindow = null; }
     if (Manager.ctxAnime) { this.ctxAnime = Manager.ctxAnime; }else { this.ctxAnime = null; }
     if (Manager.ctxPlayer) { this.ctxPlayer = Manager.ctxPlayer; }else { this.ctxPlayer = null; }
+    if (Manager.ctxMove) { this.ctxMove = Manager.ctxMove; }else { this.ctxMove = null; }
     if (Manager.GameWidth) { this.width = Manager.GameWidth; }else { this.width = null; }
     if (Manager.GameHeight) { this.height = Manager.GameHeight; }else { this.height = null; }
   }
@@ -16,8 +17,8 @@ class Canvas {
   }
 
   drawMoveRange(x, y, w, h) {
-    this.ctxMap.fillStyle = "red";
-    return this.ctxMap.fillRect(x, y, w, h);
+    this.ctxMove.fillStyle = "red";
+    return this.ctxMove.fillRect(x, y, w, h);
   }
 
   clearCharacter(x, y, w, h) {
@@ -28,8 +29,13 @@ class Canvas {
     return this.ctxMap.clearRect(x, y, w, h);
   }
 
+  clearMoveRange(x, y, w, h) {
+    return this.ctxMove.clearRect(x, y, w, h);
+  }
+
   translateCharcter(x, y) {
     this.ctxPlayer.translate(-x, -y);
+    this.ctxMove.translate(-x, -y);
     this.ctxMap.translate(-x, -y);
     return true;
   }

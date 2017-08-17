@@ -1,7 +1,10 @@
 class Scene_Battle {
   move(number) {
     const player = Manager.Game.Menbers.get(number);
-    Manager.Game.Battle.init();
-    Manager.Game.Battle.moveRange(player.mapX, player.mapY, 3);
+    const battle = Manager.Game.Battle;
+    if (!battle.movementRangeInit) { battle.init(); }else { battle.initMovementRange(); }
+    Manager.Sprite.Battle.allClear();
+
+    Manager.Game.Battle.moveRange(player.mapX, player.mapY, 8);
   }
 }

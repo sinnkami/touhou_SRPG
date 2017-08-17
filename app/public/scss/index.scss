@@ -7,17 +7,20 @@ canvas {
   background-color: black;
   z-index: 1;
 }
+#move {
+  z-index: 2
+}
 
 #player {
-  z-index: 2;
+  z-index: 3;
 }
 
 #window {
-  z-index: 4;
+  z-index: 5;
 }
 
 #anime {
-  z-index: 3;
+  z-index: 4;
 }
 
 body {

@@ -1,6 +1,5 @@
 class Game_Battle {
   init() {
-
     // 移動範囲を格納する変数作成
     const map = Manager.Game.Map.data;
     this.movementRangeInit = [];
@@ -14,9 +13,14 @@ class Game_Battle {
     this.movementRange = $.extend(true, this.movementRangeInit);
   }
 
+  initMovementRange() {
+    this.movementRange = $.extend(true, this.movementRangeInit);
+    return true;
+  }
+
   moveRange(x, y, speed) {
     try {
-      this.movementRange[x][y] = true;
+      this.movementRange[y][x] = true;
       if(speed <= 0) { return; }
 
       Manager.Sprite.Battle.draw(x, y);

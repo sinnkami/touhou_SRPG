@@ -48,7 +48,6 @@ class Game_Manager {
       if (!this.animation){ this.Scene.Move.event(); }
 
       if (this.battleInterval) { clearInterval(this.mainInterval); this.mainInterval = null; }
-      stats.update();
     }, 1000/this.FPS);
   }
 
@@ -60,7 +59,6 @@ class Game_Manager {
 
       this.FrameCount++;
       this.Game.Key.keydown();
-
       this.Scene.Battle.move(0);
       this.test();
 
@@ -71,10 +69,11 @@ class Game_Manager {
 
   test() {
     const input = this.Game.Key.input;
+    stats.update();
     if (input.shift) {
       input.shift = false;
       if (this.mainInterval) { this.battleInterval = this.battleLoop(); }
-      else if (this.battleInterval) { this.mainInterval = this.mainLoop(); }
+      else if (this.battleInterval) { this.mainInterval = this.mainLoop(); Manager.Sprite.Battle.allClear();}
     }
   }
 
