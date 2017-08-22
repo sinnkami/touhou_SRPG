@@ -1,10 +1,9 @@
 const jQuery = require("jquery");
-const $ = jQuery;
 
-$(function () {
+jQuery(function () {
   const fs = require("fs");
   const game = fs.readdirSync("./public/js");
-  const $body = $("body");
+  const $body = jQuery("body");
 
   game.forEach(function (value, num) {
     if (value === "index.js") { return; }

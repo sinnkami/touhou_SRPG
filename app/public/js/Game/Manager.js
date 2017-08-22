@@ -64,7 +64,7 @@ class Game_Manager {
 
       this.Game.Key.keyup();
       if (this.mainInterval) { clearInterval(this.battleInterval); this.battleInterval = null; }
-    })
+    }, 1000/this.FPS);
   }
 
   test() {

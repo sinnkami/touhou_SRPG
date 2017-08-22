@@ -5,13 +5,13 @@ const Manager = new Game_Manager([
   new Sprite_Base([new Sprite_Map(), new Sprite_Player(), new Sprite_Battle()]),
   new Window_Base([])
 ]);
-const $body = $("body");
+const $body = jQuery("body");
 const Stats = require('stats.js');
 const stats = new Stats();
 stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
-$(function () {
+jQuery(function () {
   const map = document.getElementById('map');
   const map_context = map.getContext('2d');
   Manager.ctxMap = map_context;

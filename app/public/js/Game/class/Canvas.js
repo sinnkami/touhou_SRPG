@@ -7,6 +7,10 @@ class Canvas {
     if (Manager.ctxMove) { this.ctxMove = Manager.ctxMove; }else { this.ctxMove = null; }
     if (Manager.GameWidth) { this.width = Manager.GameWidth; }else { this.width = null; }
     if (Manager.GameHeight) { this.height = Manager.GameHeight; }else { this.height = null; }
+
+    this.rainbow = 0; // 色指定HSLの色相
+
+    this.drawMoveRangeCount = 0;
   }
 
   drawMap(image, sx, sy, sw, sh, dx, dy, dw, dh) {
@@ -17,12 +21,15 @@ class Canvas {
   }
 
   drawMoveRange(x, y, w, h) {
-    this.ctxMove.fillStyle = "red";
+    this.ctxMove.fillStyle = `hsla(${this.rainbow}, 100%, 50%, 0.30)`;
     return this.ctxMove.fillRect(x, y, w, h);
   }
 
   clearCharacter(x, y, w, h) {
     return this.ctxPlayer.clearRect(x, y, w, h);
+  }
+  clearWindow(x, y, w, h) {
+    return this.ctxWindow.clearRect(x, y, w, h);
   }
 
   clearMap(x, y, w, h) {
@@ -31,6 +38,11 @@ class Canvas {
 
   clearMoveRange(x, y, w, h) {
     return this.ctxMove.clearRect(x, y, w, h);
+  }
+
+  drawBattleCursor(x, y, w, h) {
+    this.ctxWindow.strokeStyle = "#b3b3b3";
+    return this.ctxMove.strokeRect(x, y, w, h);
   }
 
   translateCharcter(x, y) {
