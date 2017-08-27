@@ -5,4 +5,5 @@ gulp.task('public', [
   'images',
   'style',
   'json',
+  'font',
 ])
