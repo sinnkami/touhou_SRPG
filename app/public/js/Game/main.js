@@ -3,7 +3,7 @@ const Manager = new Game_Manager([
   new Game_Base([new Game_Menbers(), new Game_Map(), new Game_Key(), new Game_Battle()]),
   new Scene_Base([new Scene_Move(), new Scene_Battle()]),
   new Sprite_Base([new Sprite_Map(), new Sprite_Player(), new Sprite_Battle()]),
-  new Window_Base([])
+  new Window_Base([new Window_Battle()])
 ]);
 const $body = jQuery("body");
 const Stats = require('stats.js');

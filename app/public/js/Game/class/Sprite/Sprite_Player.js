@@ -16,17 +16,23 @@ class Sprite_Player extends Canvas {
   }
 
   translate(x, y, num) {
-    if (!this.ctxPlayer) { this.init(); }
-    this.canTranslate(x, y, num);
-    if (x && this.translateCount.x > 0) {
-      this.translateCharcter(x, y);
-      return "x";
-    }else if (y && this.translateCount.y > 0) {
-      this.translateCharcter(x, y);
-      return "y";
-    }else {
-      return false;
-    }
+    this.translateCount = 0;
+    this.translateCharcter(x, y);
+
+    return true;
+
+    // NOTE: 現在はキャラクターを確定で中心に置くのでコメントアウト
+    // if (!this.ctxPlayer) { this.init(); }
+    // this.canTranslate(x, y, num);
+    // if (x && this.translateCount.x > 0) {
+    //   this.translateCharcter(x, y);
+    //   return "x";
+    // }else if (y && this.translateCount.y > 0) {
+    //   this.translateCharcter(x, y);
+    //   return "y";
+    // }else {
+    //   return false;
+    // }
   }
 
   canTranslate(x, y, num) {

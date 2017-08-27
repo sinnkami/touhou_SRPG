@@ -14,6 +14,33 @@ class Sprite_Battle extends Canvas {
     return this.moveRangeClear();
   }
 
+  drawVictoryCondition(text, x, frame) {
+    if (!this.ctxAnime) { this.init(); }
+
+    const y = 100;
+    this.drawAnimationFrame(frame, x, y, 400, 80);
+    this.drawAnimationText("勝利条件", x+70, y+30, "20px 'umefont'");
+    this.drawAnimationText(text, x+120, y+60, "20px 'umefont'");
+  }
+
+  drawDefeatCondition(text, x, frame) {
+    if (!this.ctxAnime) { this.init(); }
+
+    const y = 200;
+    this.drawAnimationFrame(frame, x, y, 400, 80);
+    this.drawAnimationText("敗北条件", x+70, y+30, "20px 'umefont'");
+    this.drawAnimationText(text, x+120, y+60, "20px 'umefont'");
+  }
+
+  animationClear() {
+    if (!this.ctxAnime) { this.init(); }
+    const x = 0;
+    const y = 0;
+    const w = Manager.GameWidth;
+    const h = Manager.GameHeight;
+    return this.clearAnimation(x, y, w, h);
+  }
+
   windowClear() {
     const x = 0;
     const y = 0;

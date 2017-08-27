@@ -10,6 +10,9 @@ class Canvas {
 
     this.rainbow = 0; // 色指定HSLの色相
 
+    this.font = "10px 'umefont'";
+    this.color = "#000000";
+
     this.drawMoveRangeCount = 0;
   }
 
@@ -18,6 +21,21 @@ class Canvas {
   }
   drawCharacter(image, sx, sy, sw, sh, dx, dy, dw, dh) {
     return this.ctxPlayer.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  }
+  drawAnimationFrame(image, dx, dy, dw, dh) {
+    return this.ctxAnime.drawImage(image, dx, dy, dw, dh);
+  }
+
+  drawAnimationText(text, x, y, font, color, maxWidth) {
+    if (!font) { font = this.font; }
+    if (!color) { color = this.color; }
+    this.ctxAnime.font = font;
+    this.ctxAnime.fillStyle = color;
+    return this.ctxAnime.fillText(text, x, y, maxWidth);
+  }
+
+  drawWindowBattle(image, dx, dy, dw, dh) {
+    return this.ctxWindow.drawImage(image, dx, dy, dw, dh);
   }
 
   drawMoveRange(x, y, w, h) {
@@ -30,6 +48,10 @@ class Canvas {
   }
   clearWindow(x, y, w, h) {
     return this.ctxWindow.clearRect(x, y, w, h);
+  }
+
+  clearAnimation(x, y, w, h) {
+    return this.ctxAnime.clearRect(x, y, w, h);
   }
 
   clearMap(x, y, w, h) {
@@ -49,6 +71,13 @@ class Canvas {
     this.ctxPlayer.translate(-x, -y);
     this.ctxMove.translate(-x, -y);
     this.ctxMap.translate(-x, -y);
+    return true;
+  }
+
+  initTranslateCharcter() {
+    this.ctxPlayer.setTransform(1,0,0,1,0,0);
+    this.ctxMove.setTransform(1,0,0,1,0,0);
+    this.ctxMap.setTransform(1,0,0,1,0,0);
     return true;
   }
 }

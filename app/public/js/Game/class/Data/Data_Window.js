@@ -18,4 +18,8 @@ class Data_Window {
   blueWindow() {
     return this.images["blue_mesframe"];
   }
+
+  battleWindow() {
+    return this.images["battleWindow"];
+  }
 }

@@ -27,14 +27,17 @@ class Game_Manager {
     player.y = 32;
     player.mapX = 1;
     player.mapY = 1;
+    let canvas = new Canvas();
+    canvas.init();
+    canvas.translateCharcter(-32*9, -32*6);
     // テスト終了
+    this.Game.Key.keydown();
+    this.Game.Key.keyup();
     this.mainInterval = this.mainLoop();
   }
 
   mainLoop() {
     console.log("mainLoop開始");
-    this.Game.Key.keydown();
-    this.Game.Key.keyup();
     return setInterval(() => {
       let result = document.hasFocus();
       if (!result) { return; }
@@ -58,11 +61,12 @@ class Game_Manager {
       if (!result) { return; }
 
       this.FrameCount++;
-      this.Game.Key.keydown();
-      this.Scene.Battle.move(0);
+
+      if (!this.animation) {
+        this.Scene.Battle.event(0);
+      }
       this.test();
 
-      this.Game.Key.keyup();
       if (this.mainInterval) { clearInterval(this.battleInterval); this.battleInterval = null; }
     }, 1000/this.FPS);
   }
