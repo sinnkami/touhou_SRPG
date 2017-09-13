@@ -1,5 +1,6 @@
 // アプリケーション作成用のモジュールを読み込み
 const electron = require('electron');
+const ratio = require('aspect-ratio');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
@@ -15,11 +16,13 @@ class App {
     });
 
     this.app.on('ready', ()=> {
+      const size = electron.screen.getPrimaryDisplay().size;
+      const aspect = ratio(size.width, size.height).split(":");
       this.mainWindow = new BrowserWindow({
-        width: 672,
-        height: 480,
+        width: Number(aspect[0])*84,
+        height: Number(aspect[1])*96,
         center: true,
-        resizable: false,
+        resizable: true,
         fullscreen: false,
         useContentSize: true,
         'node-integration': false,
