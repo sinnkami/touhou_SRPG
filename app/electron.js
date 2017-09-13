@@ -22,7 +22,8 @@ class App {
         resizable: false,
         fullscreen: false,
         useContentSize: true,
-        'node-integration': false
+        'node-integration': false,
+        backgroundColor: "#000000"
       });
 
       this.mainWindow.on('closed', ()=> {
