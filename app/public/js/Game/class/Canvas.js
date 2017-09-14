@@ -34,6 +34,14 @@ class Canvas {
     return this.ctxAnime.fillText(text, x, y, maxWidth);
   }
 
+  drawWindowText(text, x, y, font, color, maxWidth) {
+    if (!font) { font = this.font; }
+    if (!color) { color = this.color; }
+    this.ctxWindow.font = font;
+    this.ctxWindow.fillStyle = color;
+    return this.ctxWindow.fillText(text, x, y, maxWidth);
+  }
+
   drawWindowBattle(image, dx, dy, dw, dh) {
     return this.ctxWindow.drawImage(image, dx, dy, dw, dh);
   }
@@ -63,8 +71,13 @@ class Canvas {
   }
 
   drawBattleCursor(x, y, w, h) {
-    this.ctxWindow.strokeStyle = "#b3b3b3";
+    this.ctxMove.strokeStyle = "#000000";
     return this.ctxMove.strokeRect(x, y, w, h);
+  }
+
+  drawWindowCursor(x, y, w, h) {
+    this.ctxWindow.strokeStyle = "#000000";
+    return this.ctxWindow.strokeRect(x, y, w, h);
   }
 
   translateCharcter(x, y) {

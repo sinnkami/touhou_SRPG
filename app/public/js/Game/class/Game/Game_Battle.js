@@ -16,10 +16,16 @@ class Game_Battle {
         this.movementRangeInit[y][x] = false;
       }
     }
-    this.movementRange = jQuery.extend(true, this.movementRangeInit);
+    this.movementRange = Object.assign({}, this.movementRangeInit);
     this.movementRangeDraw = []; // 描画用の値を保存しておく変数
+
     // 戦闘中移動カーソルクラス
     this.cursor = new Game_BattleCursor();
+
+    // 戦闘中移動する方向・量を保存する変数
+    this.moveX = null;
+    this.moveY = null;
+    this.moveDirection = null;
   }
 
   battleConditionsStart() {
@@ -74,19 +80,23 @@ class Game_Battle {
   }
 
   initMovementRange() {
-    this.movementRange = jQuery.extend(true, this.movementRangeInit);
+    this.movementRange = Object.assign({}, this.movementRangeInit);
+    this.movementRangeDraw = [];
     return true;
   }
 
   moveRange(x, y, speed) {
     try {
+      const map = Manager.Game.Map.data;
+      if (map[y][x] === null) { return; }
+      if(speed <= 0) { return; }
+
       this.movementRange[y][x] = true;
       var push = true;
       this.movementRangeDraw.forEach((position) => {
         if (position.x === x && position.y === y) { push = false; return; }
       })
       if (push) { this.movementRangeDraw.push({x: x, y: y}); }
-      if(speed <= 0) { return; }
 
       this.moveRange(x + 1, y, speed - 1);
       this.moveRange(x - 1, y, speed - 1);
@@ -94,6 +104,15 @@ class Game_Battle {
       this.moveRange(x, y - 1, speed - 1);
     } finally {
       return;
+    }
+  }
+
+  canMove(x, y) {
+    const map = this.movementRange;
+    if (map[y][x]) {
+      return true;
+    }else {
+      return false;
     }
   }
 }

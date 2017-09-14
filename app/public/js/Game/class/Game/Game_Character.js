@@ -67,6 +67,34 @@ class Game_Character {
     }
   }
 
+  battleMove(x, y, num) {
+    if (this.mapMove(x, y)) {
+      Manager.animation = true;
+      var count = 0;
+      var set = x ? "x" : "y";
+      const move = setInterval(() => {
+        count++;
+        Manager.Sprite.Player.clear(num);
+        if (this.animationNumber > 2.9) {
+          this.animationNumber = 0;
+        }else {
+          this.animationNumber += 0.05;
+        }
+        this[set] += set === "x" ? x : y;
+        Manager.Sprite.Player.draw(this.x, this.y, num);
+        if (count === 32) {
+          count = null;
+          set = null;
+          clearInterval(move);
+          Manager.animation = false;
+        }
+      }, 2);
+    }else {
+      Manager.Sprite.Player.clear(num);
+      Manager.Sprite.Player.draw(this.x, this.y, num);
+    }
+  }
+
   mapMove(x, y) {
     let map = Manager.Game.Map.data;
     let position = this.isPosition();

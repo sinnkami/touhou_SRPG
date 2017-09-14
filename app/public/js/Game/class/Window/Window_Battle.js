@@ -2,14 +2,11 @@ class Window_Battle extends Canvas {
   init() {
     super.init();
     this.cursor = {
-      x: 0,
-      y: 0,
-      draw: function(w, h) {
-        this.drawWindowCursor(this.cursor.x, this.cursor.y, w, h);
-      },
+      x: 505,
+      y: 70,
       move: function (x, y) {
-        this.cursor.x += x;
-        this.cursor.y += y;
+        this.x += x * 20;
+        this.y += y * 20;
       }
     }
   }
@@ -17,6 +14,8 @@ class Window_Battle extends Canvas {
   draw() {
     const image = Manager.Data.Window.battleWindow();
     this.drawWindowBattle(image, 500, 50, 150, 400);
+    this.drawWindowText("移動", 530, 90, "20px 'umefont'");
+    this.drawWindowCursor(this.cursor.x, this.cursor.y, 100, 30);
   }
 
   allClear() {
