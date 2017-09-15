@@ -26,20 +26,16 @@ class Canvas {
     return this.ctxAnime.drawImage(image, dx, dy, dw, dh);
   }
 
-  drawAnimationText(text, x, y, font, color, maxWidth) {
-    if (!font) { font = this.font; }
-    if (!color) { color = this.color; }
+  drawAnimationText(text, x, y, font = this.font, color = this.color) {
     this.ctxAnime.font = font;
     this.ctxAnime.fillStyle = color;
-    return this.ctxAnime.fillText(text, x, y, maxWidth);
+    return this.ctxAnime.fillText(text, x, y);
   }
 
-  drawWindowText(text, x, y, font, color, maxWidth) {
-    if (!font) { font = this.font; }
-    if (!color) { color = this.color; }
+  drawWindowText(text, x, y, font = this.font, color = this.color) {
     this.ctxWindow.font = font;
     this.ctxWindow.fillStyle = color;
-    return this.ctxWindow.fillText(text, x, y, maxWidth);
+    return this.ctxWindow.fillText(text, x, y);
   }
 
   drawWindowBattle(image, dx, dy, dw, dh) {
