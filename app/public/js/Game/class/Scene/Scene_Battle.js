@@ -123,7 +123,7 @@ class Scene_Battle {
       gameBattle.cursor.mapY = player.mapY;
     }
     else if (input.enter) {
-      if (gameBattle.canMove(gameBattle.cursor.mapX, gameBattle.cursor.mapY)) {
+      if (gameBattle.canMove(gameBattle.cursor.mapX, gameBattle.cursor.mapY) && !(gameBattle.cursor.mapX === player.mapX && gameBattle.cursor.mapY === player.mapY)) {
         gameBattle.selectEvent = "toMoveing";
         gameBattle.moveX = gameBattle.cursor.mapX - player.mapX;
         gameBattle.moveY = gameBattle.cursor.mapY - player.mapY;
