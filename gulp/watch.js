@@ -15,7 +15,11 @@ gulp.task('watch:express', (callback) => {
 gulp.task('watch:electron', (callback) => {
   if (!args.watch) { return callback(); }
 
-  watch(`${args.src}/public/**/*`, () => { return gulp.start(['public']); });
+  watch(`${args.src}/public/scss/**/*`, () => { return gulp.start(['style']); });
+  watch(`${args.src}/public/css/**/*`, () => { return gulp.start(['style']); });
+  watch(`${args.src}/public/js/**/*`, () => { return gulp.start(['scripts']); });
+  watch(`${args.src}/public/json/**/*`, () => { return gulp.start(['json']); });
+  watch(`${args.src}/public/images/**/*`, () => { return gulp.start(['images']); });
   watch(`${args.src}/views/${args.vendor}/**/*.jade`, () => { return gulp.start(['views']); });
   watch(`${args.src}/${args.vendor}.js`, () => { return gulp.start([`${args.vendor}`]); });
 })
