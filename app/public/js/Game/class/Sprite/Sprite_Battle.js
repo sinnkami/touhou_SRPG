@@ -3,7 +3,7 @@ class Sprite_Battle extends Canvas {
     super.init();
   }
 
-  drawMovementRange(x, y) {
+  drawRange(x, y) {
     if (!this.ctxMove) { this.init(); }
     return this.drawMoveRange(x * 32, y * 32, 32, 32);
   }
@@ -11,7 +11,7 @@ class Sprite_Battle extends Canvas {
   allClear() {
     if (!this.ctxMove) { this.init(); }
     this.windowClear();
-    return this.moveRangeClear();
+    return this.rangeClear();
   }
 
   drawVictoryCondition(text, x, frame) {
@@ -48,7 +48,7 @@ class Sprite_Battle extends Canvas {
     const h = Manager.Game.Map.maxY;
     return this.clearWindow(x, y, w, h);
   }
-  moveRangeClear() {
+  rangeClear() {
     const x = 0;
     const y = 0;
     const w = Manager.Game.Map.maxX;

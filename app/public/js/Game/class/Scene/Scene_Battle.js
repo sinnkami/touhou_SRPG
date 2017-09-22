@@ -18,14 +18,20 @@ class Scene_Battle {
       case "isSelect":
         this.isSelect();
       break;
+      case "selectedAttack":
+        this.selectedAttack(number);
+      break;
       case "selectedMove":
         this.selectedMove(number);
+      break;
+      case "whereToAttack":
+        this.whereToAttack(number);
       break;
       case "whereToMove":
         this.whereToMove(number);
       break;
       case "toMoveing":
-      this.toMoveing(number);
+        this.toMoveing(number);
       break;
 
       default: throw new Error("バトルイベントが存在していません");
@@ -74,8 +80,31 @@ class Scene_Battle {
     windowBattle.draw();
     if (input.enter) {
       input.enter = false;
-      gameBattle.selectEvent = "selectedMove";
+      gameBattle.selectEvent = "selectedAttack";
     }
+  }
+
+  selectedAttack(number) {
+    const player = Manager.Game.Menbers.get(number);
+    const gameBattle = Manager.Game.Battle;
+    const spriteBattle = Manager.Sprite.Battle;
+
+    gameBattle.initRange();
+    spriteBattle.allClear();
+
+    gameBattle.cursor.playerTranslate = {x: player.mapX*32-32*10, y: player.mapY*32-32*7};
+
+    const range = 6;
+    const space = 4;
+    gameBattle.attackRange(player.mapX, player.mapY, range);
+    for (let i = 0; i < gameBattle.rangeDraw.length; i++) {
+      if (Math.abs(gameBattle.rangeDraw[i].x - player.mapX) + Math.abs(gameBattle.rangeDraw[i].y - player.mapY) <= space) {
+        gameBattle.rangeDraw.splice(i, 1);
+        i--;
+      }
+    }
+    gameBattle.cursor.setInitPosition(player.x, player.y);
+    gameBattle.selectEvent = "whereToAttack";
   }
 
   selectedMove(number) {
@@ -83,15 +112,47 @@ class Scene_Battle {
     const gameBattle = Manager.Game.Battle;
     const spriteBattle = Manager.Sprite.Battle;
 
-    gameBattle.initMovementRange();
+    gameBattle.initRange();
     spriteBattle.allClear();
 
-    gameBattle.initMovementRange();
     gameBattle.cursor.playerTranslate = {x: player.mapX*32-32*10, y: player.mapY*32-32*7};
 
     gameBattle.moveRange(player.mapX, player.mapY, 8);
     gameBattle.cursor.setInitPosition(player.x, player.y);
     gameBattle.selectEvent = "whereToMove";
+  }
+
+  whereToAttack(number) {
+    const player = Manager.Game.Menbers.get(number);
+    const gameBattle = Manager.Game.Battle;
+    const spriteBattle = Manager.Sprite.Battle;
+    const input = Manager.Game.Key.input;
+
+    spriteBattle.rangeClear();
+    gameBattle.rangeDraw.forEach((position) => {
+      spriteBattle.drawRange(position.x, position.y);
+    });
+    spriteBattle.drawCursor(gameBattle.cursor.x, gameBattle.cursor.y);
+
+    if (input.up) { gameBattle.cursor.move(0, -1, number); }
+    else if (input.down) { gameBattle.cursor.move(0, 1, number); }
+    else if (input.right) { gameBattle.cursor.move(1, 0, number); }
+    else if (input.left) { gameBattle.cursor.move(-1, 0, number); }
+    else if (input.back) {
+      spriteBattle.rangeClear();
+      gameBattle.selectEvent = "isSelect";
+      Manager.Sprite.Map.allClear();
+      Manager.Sprite.Player.clear(number);
+      spriteBattle.initTranslateCharcter();
+      spriteBattle.translateCharcter(gameBattle.cursor.playerTranslate.x, gameBattle.cursor.playerTranslate.y);
+      Manager.Sprite.Map.allDraw();
+      Manager.Sprite.Player.draw(player.x, player.y, number);
+      gameBattle.cursor.mapX = player.mapX;
+      gameBattle.cursor.mapY = player.mapY;
+    }
+
+    spriteBattle.rainbow += 2;
+    if (spriteBattle.rainbow > 360) { spriteBattle.drawMoveRangeCount = 0; }
   }
 
   whereToMove(number) {

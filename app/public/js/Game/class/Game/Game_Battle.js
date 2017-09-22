@@ -9,15 +9,15 @@ class Game_Battle {
 
     // 移動範囲を格納する変数作成
     const map = Manager.Game.Map.data;
-    this.movementRangeInit = [];
+    this.rangeInit = [];
     for (let y = 0; y < map.length; y++) {
-      this.movementRangeInit.push([]);
+      this.rangeInit.push([]);
       for (let x = 0; x < map[y].length; x++) {
-        this.movementRangeInit[y][x] = false;
+        this.rangeInit[y][x] = false;
       }
     }
-    this.movementRange = Object.assign({}, this.movementRangeInit);
-    this.movementRangeDraw = []; // 描画用の値を保存しておく変数
+    this.range = Object.assign({}, this.rangeInit);
+    this.rangeDraw = []; // 描画用の値を保存しておく変数
 
     // 戦闘中移動カーソルクラス
     this.cursor = new Game_BattleCursor();
@@ -79,9 +79,9 @@ class Game_Battle {
     })
   }
 
-  initMovementRange() {
-    this.movementRange = Object.assign({}, this.movementRangeInit);
-    this.movementRangeDraw = [];
+  initRange() {
+    this.range = Object.assign({}, this.rangeInit);
+    this.rangeDraw = [];
     return true;
   }
 
@@ -91,12 +91,12 @@ class Game_Battle {
       if (map[y][x] === null) { return; }
       if(speed <= 0) { return; }
 
-      this.movementRange[y][x] = true;
+      this.range[y][x] = true;
       var push = true;
-      this.movementRangeDraw.forEach((position) => {
+      this.rangeDraw.forEach((position) => {
         if (position.x === x && position.y === y) { push = false; return; }
       })
-      if (push) { this.movementRangeDraw.push({x: x, y: y}); }
+      if (push) { this.rangeDraw.push({x: x, y: y}); }
 
       this.moveRange(x + 1, y, speed - 1);
       this.moveRange(x - 1, y, speed - 1);
@@ -107,8 +107,30 @@ class Game_Battle {
     }
   }
 
+  attackRange(x, y, range) {
+    try {
+      const map = Manager.Game.Map.data;
+      if (map[y][x] === null) { return; }
+      if(range <= 0) { return; }
+
+      this.range[y][x] = true;
+      var push = true;
+      this.rangeDraw.forEach((position) => {
+        if (position.x === x && position.y === y) { push = false; return; }
+      })
+      if (push) { this.rangeDraw.push({x: x, y: y}); }
+
+      this.attackRange(x + 1, y, range - 1);
+      this.attackRange(x - 1, y, range - 1);
+      this.attackRange(x, y + 1, range - 1);
+      this.attackRange(x, y - 1, range - 1);
+    } finally {
+      return;
+    }
+  }
+
   canMove(x, y) {
-    const map = this.movementRange;
+    const map = this.range;
     if (map[y][x]) {
       return true;
     }else {
