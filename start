@@ -1,0 +1,4 @@
+dir=`pwd`
+cd $dir/dist/electron > /dev/null
+$dir/node_modules/electron/cli.js $dir/dist/electron/app.js
+cd $dir > /dev/null
