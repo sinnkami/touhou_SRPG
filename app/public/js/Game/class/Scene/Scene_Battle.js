@@ -1,7 +1,11 @@
 class Scene_Battle {
-  event(number) {
-    if (!Manager.Game.Battle.selectEvent) { Manager.Game.Battle.selectEvent = "start"; }
+  constructor() {
+    this.anActorNumber = null;
+  }
 
+  event() {
+    if (!Manager.Game.Battle.selectEvent) { Manager.Game.Battle.selectEvent = "start"; }
+    if (this.anActorNumber !== null) { var number = this.anActorNumber; }
     switch (Manager.Game.Battle.selectEvent) {
       case "start":
         this.start();
@@ -34,6 +38,11 @@ class Scene_Battle {
         this.toMoveing(number);
       break;
 
+
+      case "trunEnd":
+        this.trunEnd();
+      break;
+
       default: throw new Error("バトルイベントが存在していません");
     }
   }
@@ -42,6 +51,20 @@ class Scene_Battle {
     const gameBattle = Manager.Game.Battle;
     gameBattle.init();
     gameBattle.selectEvent = "battleConditions";
+
+    //TODO: 戦闘に出るキャラを追加する
+    gameBattle.character.push({
+      number: 0,
+      point: 0,
+      move: function (self) {
+        const player = Manager.Game.Menbers.get(this.number);
+        this.point += player.speed;
+        if (this.point >= 100) {
+          this.point = 0;
+          self.anActorNumber = this.number;
+        }
+      }
+    })
   }
 
   battleConditions() {
@@ -51,7 +74,13 @@ class Scene_Battle {
 
   whoseTrun() {
     const gameBattle = Manager.Game.Battle;
-    gameBattle.selectEvent = "trunStart";
+    for (let i = 0; i < gameBattle.character.length; i++) {
+      gameBattle.character[i].move(this);
+      console.log(gameBattle.character[i].number, gameBattle.character[i].point);
+    }
+    if (this.anActorNumber !== null) {
+      gameBattle.selectEvent = "trunStart";
+    }
   }
 
   trunStart(number) {
@@ -80,7 +109,24 @@ class Scene_Battle {
     windowBattle.draw();
     if (input.enter) {
       input.enter = false;
-      gameBattle.selectEvent = "selectedAttack";
+      switch (windowBattle.cursor.number) {
+        case 0:
+          if (gameBattle.moved) { break; }
+          gameBattle.selectEvent = "selectedMove";
+        break;
+        case 1:
+          gameBattle.selectEvent = "selectedAttack";
+        break;
+        default: throw new Error("カーソルの番号が存在しません")
+      }
+    }else if (input.up && windowBattle.cursor.number !== 0) {
+      input.up = false;
+      windowBattle.cursor.number--;
+      windowBattle.cursor.move(0, -1);
+    }else if (input.down && windowBattle.cursor.number !== windowBattle.cursor.max) {
+      input.down = false;
+      windowBattle.cursor.number++;
+      windowBattle.cursor.move(0, 1);
     }
   }
 
@@ -161,9 +207,9 @@ class Scene_Battle {
     const spriteBattle = Manager.Sprite.Battle;
     const input = Manager.Game.Key.input;
 
-    spriteBattle.moveRangeClear();
-    gameBattle.movementRangeDraw.forEach((position) => {
-      spriteBattle.drawMovementRange(position.x, position.y);
+    spriteBattle.rangeClear();
+    gameBattle.rangeDraw.forEach((position) => {
+      spriteBattle.drawRange(position.x, position.y);
     });
     spriteBattle.drawCursor(gameBattle.cursor.x, gameBattle.cursor.y);
 
@@ -172,7 +218,7 @@ class Scene_Battle {
     else if (input.right) { gameBattle.cursor.move(1, 0, number); }
     else if (input.left) { gameBattle.cursor.move(-1, 0, number); }
     else if (input.back) {
-      spriteBattle.moveRangeClear();
+      spriteBattle.rangeClear();
       gameBattle.selectEvent = "isSelect";
       Manager.Sprite.Map.allClear();
       Manager.Sprite.Player.clear(number);
@@ -186,6 +232,7 @@ class Scene_Battle {
     else if (input.enter) {
       if (gameBattle.canMove(gameBattle.cursor.mapX, gameBattle.cursor.mapY) && !(gameBattle.cursor.mapX === player.mapX && gameBattle.cursor.mapY === player.mapY)) {
         gameBattle.selectEvent = "toMoveing";
+        gameBattle.moved = true;
         gameBattle.moveX = gameBattle.cursor.mapX - player.mapX;
         gameBattle.moveY = gameBattle.cursor.mapY - player.mapY;
         gameBattle.moveDirection = Math.abs(gameBattle.moveX) > Math.abs(gameBattle.mapY) ? "horizontal" : "vertical"
@@ -202,8 +249,8 @@ class Scene_Battle {
     const spriteBattle = Manager.Sprite.Battle;
     const input = Manager.Game.Key.input;
 
-    spriteBattle.moveRangeClear();
-    spriteBattle.drawMovementRange(gameBattle.cursor.mapX, gameBattle.cursor.mapY);
+    spriteBattle.rangeClear();
+    spriteBattle.drawRange(gameBattle.cursor.mapX, gameBattle.cursor.mapY);
     spriteBattle.drawCursor(gameBattle.cursor.x, gameBattle.cursor.y);
 
     switch (gameBattle.moveDirection) {
@@ -227,8 +274,9 @@ class Scene_Battle {
         }else {
           player.animationNumber = 1;
           Manager.Sprite.Player.clear(number);
-          spriteBattle.moveRangeClear();
+          spriteBattle.rangeClear();
           Manager.Sprite.Player.draw(player.x, player.y, number);
+          gameBattle.moved = true;
           gameBattle.selectEvent = "isSelect";
         }
       break;
@@ -252,8 +300,9 @@ class Scene_Battle {
         }else {
           player.animationNumber = 1;
           Manager.Sprite.Player.clear(number);
-          spriteBattle.moveRangeClear();
+          spriteBattle.rangeClear();
           Manager.Sprite.Player.draw(player.x, player.y, number);
+          gameBattle.moved = true;
           gameBattle.selectEvent = "isSelect";
         }
       break;
@@ -262,5 +311,16 @@ class Scene_Battle {
 
     spriteBattle.rainbow += 2;
     if (spriteBattle.rainbow > 360) { spriteBattle.drawMoveRangeCount = 0; }
+  }
+
+  toAttack() {
+
+  }
+
+  trunEnd() {
+    const gameBattle = Manager.Game.Battle;
+    gameBattle.init();
+    this.anActorNumber = null;
+    gameBattle.selectEvent = "whoseTrun";
   }
 }

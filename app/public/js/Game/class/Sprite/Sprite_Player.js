@@ -57,7 +57,6 @@ class Sprite_Player extends Canvas {
 
   clear(num) {
     if (!this.ctxPlayer) { this.init(); }
-
     let game_player = Manager.Game.Menbers.get(num);
     let x = game_player.x;
     let y = game_player.y;

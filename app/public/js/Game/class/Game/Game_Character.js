@@ -21,9 +21,10 @@ class Game_Character {
       throw new Error("画像ファイルが存在しません");
     }
     if (data.number) { this.number = data.number; }else { this.number = null; warn.push(`${this.name}の番号が指定されていません`); }
+    if (data.speed) { this.speed = data.speed; }else { this.number = 0; warn.push(`${this.name}のスピードが指定されていません`); }
 
-    for (let i in warn){
-      console.warn(i);
+    for (let i = 0; i < warn.length; i++) {
+      console.warn(warn[i]);
     }
   }
 

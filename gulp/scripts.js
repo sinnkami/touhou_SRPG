@@ -40,19 +40,19 @@ gulp.task('scripts', function(){
       children: false
     }))
   })))
-  .pipe(gulpif(args.vendor === "electron", babel({
-    presets: ['env']
-  }).on('error', notify.onError(function (err) {
-    gutil.log(`${gutil.colors.red(err.name)}`);
-    console.log(err.message);
-    console.log(err.codeFrame);
-    let message = err.message.split(":")[1];
-    let file_name = err.fileName.split("/").pop();
-    return {
-      message: `${message}`,
-      title: `${err.name}: ${file_name}`
-    };
-  }))))
+  // .pipe(gulpif(args.vendor === "electron", babel({
+  //   presets: ['env']
+  // }).on('error', notify.onError(function (err) {
+  //   gutil.log(`${gutil.colors.red(err.name)}`);
+  //   console.log(err.message);
+  //   console.log(err.codeFrame);
+  //   let message = err.message.split(":")[1];
+  //   let file_name = err.fileName.split("/").pop();
+  //   return {
+  //     message: `${message}`,
+  //     title: `${err.name}: ${file_name}`
+  //   };
+  // }))))
   .pipe(gulpif(args.compression, stripDebug()))
   .pipe(gulpif(args.compression, uglify({
     mangle: false, // true にすると変数名も変換されていろいろな場所がバグる

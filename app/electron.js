@@ -12,6 +12,7 @@ class App {
     this.app.commandLine.appendSwitch("disable-renderer-backgrounding");
 
     this.app.on('window-all-closed', ()=> {
+      electron.session.defaultSession.clearCache(() => {})
       this.app.quit();
     });
 

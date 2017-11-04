@@ -1,19 +1,25 @@
 class Game_Battle {
-  init() {
+  constructor() {
     this.selectEvent = "start";
-
     // 戦闘の勝利条件
     this.victoryCondition = "敵を全員倒す";
     // 戦闘の敗北条件
     this.DefeatCondition = "味方の全滅";
 
+    // 戦闘中存在しているキャラクターの配列
+    this.character = [];
+  }
+
+  init() {
     // 移動範囲を格納する変数作成
-    const map = Manager.Game.Map.data;
-    this.rangeInit = [];
-    for (let y = 0; y < map.length; y++) {
-      this.rangeInit.push([]);
-      for (let x = 0; x < map[y].length; x++) {
-        this.rangeInit[y][x] = false;
+    if (!this.rangeInit) {
+      const map = Manager.Game.Map.data;
+      this.rangeInit = [];
+      for (let y = 0; y < map.length; y++) {
+        this.rangeInit.push([]);
+        for (let x = 0; x < map[y].length; x++) {
+          this.rangeInit[y][x] = false;
+        }
       }
     }
     this.range = Object.assign({}, this.rangeInit);
@@ -26,6 +32,13 @@ class Game_Battle {
     this.moveX = null;
     this.moveY = null;
     this.moveDirection = null;
+
+    // 戦闘中の攻撃者と防御車の番号
+    this.attacker = null;
+    this.defender = null;
+
+    // 戦闘中動いたか
+    this.moved = false;
   }
 
   battleConditionsStart() {
